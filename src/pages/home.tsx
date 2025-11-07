@@ -5,7 +5,7 @@ import Item from "../components/item";
 import ItemField from "../components/itemfield";
 
 export default function Home() {
-    const [items, setItems] = useState<Array<{ id: number; title: string; description: string }>>([]); // usestate is the react hook that creates state. 
+    const [items, setItems] = useState<Array<{ id: number; title: string; description: string; completed: boolean }>>([]); // usestate is the react hook that creates state. 
     // it takes in one argument, the initial value. 
     // basically we are passing in to useState the type of value that the state variable will hold. 
     // setitems is the function that updates the variable and automatically triggers a re render to the UI to display the changes. 
@@ -16,6 +16,14 @@ export default function Home() {
         setItemField([...itemField, newID]);
     }
 
+    const handleOnToggle = (itemID: number) => {
+        setItems(items.map((item) => item.id === itemID ? { ...item, completed: !item.completed } : item)); // 
+    }
+
+    const handleOnDelete = (itemID: number) => {
+        setItems(items.filter((item) => item.id !== itemID));
+    }
+
 
 
     // This function is called when user presses Enter in the text field
@@ -24,7 +32,8 @@ export default function Home() {
         const newItem = {
             id: Date.now(),
             title: text,  // Use the actual text the user typed
-            description: "Item description"
+            description: "Item description",
+            completed: false
         };
         
         // Step 2: Add the new item to the items array
@@ -37,10 +46,10 @@ export default function Home() {
     return (
         <div>
             <Navbar />
-            <div style={{ paddingTop: '80px', padding: '80px 20px 20px 20px' }}>
+            <div style={{ paddingTop: '90px', paddingLeft: '20px', paddingRight: '40px', textAlign: 'left' }}>
                 {/* Render all the items */}
                 {items.map((item) => (
-                    <Item key={item.id} title={item.title} description={item.description} />
+                    <Item key={item.id} title={item.title} completed={item.completed} onToggle={() => handleOnToggle(item.id)} onDelete={() => handleOnDelete(item.id)} />
                 ))}
                 
                 {/* Render all the text fields */}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../components/style.css";
 
 interface ItemFieldProps{
     itemID: number;
