@@ -20,7 +20,7 @@ export default function Item({ title, completed, onToggle, onDelete }: ItemProps
                     <div className={`item-title ${completed ? "completed" : ""}`}>
                         {title}</div>
                 </div>
-
+                
                 <div className = "delete">
                     <button className="delete-button" onClick={onDelete}><FaTrash /></button>
                 </div>
