@@ -16,25 +16,44 @@ export default function Home() {
         setItemField([...itemField, newID]);
     }
 
-    const handleAddItem = () => {
-        const newItem = { // this creates a new item object with the following properties. 
+
+
+    // This function is called when user presses Enter in the text field
+    const handleEnterPress = (text: string, itemID: number) => {
+        // Step 1: Create a new item with the text from the input
+        const newItem = {
             id: Date.now(),
-            title: `Item ${items.length + 1}`,
+            title: text,  // Use the actual text the user typed
             description: "Item description"
         };
-        setItems([...items, newItem]); // ... is the spread operator. It is used to copy the existing items array and add the new item to the end of the array.
-    };
+        
+        // Step 2: Add the new item to the items array
+        setItems([...items, newItem]);
+        
+        // Step 3: Remove the text field (filter out this itemID)
+        setItemField(itemField.filter((id) => id !== itemID));
+    }
 
     return (
         <div>
             <Navbar />
             <div style={{ paddingTop: '80px', padding: '80px 20px 20px 20px' }}>
+                {/* Render all the items */}
+                {items.map((item) => (
+                    <Item key={item.id} title={item.title} description={item.description} />
+                ))}
+                
+                {/* Render all the text fields */}
                 {itemField.map((id) => (
-                    
-                    <ItemField key={id} />
+                    <ItemField 
+                        key={id} 
+                        itemID={id}
+                        onEnterPress={handleEnterPress}
+                    />
                 ))}
             </div>
             <AddItem onAddClick={addItemField} />
+            
         </div>
     )
 }
