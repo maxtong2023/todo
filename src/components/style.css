@@ -25,3 +25,24 @@
 .date {
     font-family: 'Roboto', sans-serif;
 }
+
+.add {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #fad712;
+    border: none;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+}
